@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Mother's Day, Mom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night:#0b1026;
+    --deep:#161c3a;
+    --gold:#d4a85e;
+    --gold-hi:#f1d28a;
+    --soft-gold:#e8c987;
+    --cream:#f7ecd6;
+    --ink:#1a1f3a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:'Cormorant Garamond','Georgia',serif;
+    background:radial-gradient(ellipse at top,#1a2050 0%, #0b1026 60%, #05070f 100%);
+    min-height:100vh;
+    color:var(--cream);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    padding:20px;
+  }
+
+  .stars{position:fixed;inset:0;pointer-events:none;z-index:0}
+  .star{
+    position:absolute;width:2px;height:2px;border-radius:50%;
+    background:var(--gold-hi);
+    animation:twinkle 4s ease-in-out infinite;
+  }
+  @keyframes twinkle{
+    0%,100%{opacity:.15}
+    50%{opacity:.85}
+  }
+
+  .stage{
+    position:relative;
+    z-index:1;
+    width:min(92vw, 420px);
+    height:min(80vh, 600px);
+    perspective:2400px;
+  }
+
+  .card{
+    position:relative;
+    width:100%;
+    height:100%;
+    transform-style:preserve-3d;
+    transition:transform 1.4s cubic-bezier(.6,.05,.2,1);
+    cursor:pointer;
+  }
+  .card.flipped{transform:rotateY(-180deg)}
+
+  .face{
+    position:absolute;
+    inset:0;
+    border-radius:8px;
+    backface-visibility:hidden;
+    overflow:hidden;
+    box-shadow:
+      0 30px 80px rgba(0,0,0,.7),
+      0 10px 30px rgba(0,0,0,.5);
+  }
+
+  /* ============ FRONT (cover) ============ */
+  .front{
+    background:
+      radial-gradient(ellipse at 50% -10%, rgba(241,210,138,.28) 0%, rgba(241,210,138,0) 55%),
+      linear-gradient(160deg,#0b1026 0%, #161c3a 100%);
+    color:var(--cream);
+    border:1px solid rgba(212,168,94,.35);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:36px 28px;
+    text-align:center;
+  }
+  .frame{
+    position:absolute;
+    inset:18px;
+    border:1px solid var(--gold);
+    pointer-events:none;
+  }
+  .frame::before{
+    content:"";
+    position:absolute;
+    inset:6px;
+    border:1px solid rgba(232,201,135,.45);
+  }
+  .lights{
+    display:flex;justify-content:space-around;
+    width:80%;
+    margin-top:6px;
+  }
+  .lights span{
+    width:5px;height:5px;border-radius:50%;
+    background:var(--gold);
+    box-shadow:0 0 8px var(--gold-hi);
+  }
+  .label{
+    color:var(--soft-gold);
+    font-family:'Inter',sans-serif;
+    font-size:11px;
+    letter-spacing:.45em;
+    margin-top:18px;
+  }
+  .wouldnt{
+    margin-top:auto;
+    font-style:italic;
+    font-size:clamp(26px,6vw,38px);
+    color:var(--cream);
+    font-weight:400;
+  }
+  .suite{
+    font-family:'Cormorant Garamond','Georgia',serif;
+    font-size:clamp(80px,16vw,128px);
+    font-weight:700;
+    line-height:1;
+    background:linear-gradient(180deg,#f1d28a 0%,#d4a85e 60%,#a07a3a 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    text-shadow:0 6px 24px rgba(0,0,0,.5);
+    letter-spacing:.03em;
+    margin:8px 0 4px;
+  }
+  .ornament{
+    display:flex;align-items:center;justify-content:center;
+    gap:8px;margin:12px 0;
+  }
+  .ornament .line{
+    width:50px;height:1px;background:var(--gold);
+  }
+  .ornament .diamond{
+    width:6px;height:6px;background:var(--gold);
+    transform:rotate(45deg);
+  }
+  .hint{
+    color:var(--soft-gold);
+    font-style:italic;
+    font-size:14px;
+    margin-top:10px;
+    margin-bottom:auto;
+    animation:pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{opacity:.45;transform:translateY(0)}
+    50%{opacity:1;transform:translateY(-3px)}
+  }
+  .corner{
+    position:absolute;
+    bottom:32px;
+    color:var(--gold);
+    font-size:18px;
+  }
+  .corner.left{left:36px}
+  .corner.right{right:36px}
+
+  /* ============ BACK (the reveal) ============ */
+  .back{
+    transform:rotateY(180deg);
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(212,168,94,.18) 0%, rgba(212,168,94,0) 50%),
+      linear-gradient(180deg,#fbf2dc 0%, #f1e3c2 100%);
+    color:var(--ink);
+    border:1px solid var(--gold);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:32px 24px 24px;
+    text-align:center;
+  }
+  .back .frame{border:1px solid var(--gold)}
+  .back .frame::before{border:1px solid rgba(160,122,58,.35)}
+
+  .ifwesaw{
+    font-style:italic;
+    font-size:clamp(22px,4.5vw,30px);
+    color:var(--ink);
+    margin-top:12px;
+  }
+  .who{
+    font-family:'Cormorant Garamond','Georgia',serif;
+    font-size:clamp(46px,9vw,64px);
+    font-weight:700;
+    line-height:1;
+    background:linear-gradient(180deg,#d4a85e 0%,#a07a3a 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    margin:6px 0 6px;
+    letter-spacing:.01em;
+  }
+  .when{
+    font-style:italic;
+    font-size:clamp(20px,3.5vw,26px);
+    color:var(--ink);
+    margin-bottom:8px;
+  }
+  .when sup{
+    font-size:.55em;
+    vertical-align:super;
+  }
+  .back .ornament .line{background:var(--gold)}
+  .back .ornament .diamond{background:var(--gold)}
+
+  /* Ticket */
+  .ticket{
+    background:linear-gradient(135deg,#0b1026 0%,#161c3a 100%);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    width:100%;
+    max-width:300px;
+    padding:14px;
+    color:var(--cream);
+    display:grid;
+    grid-template-columns: 1fr 1px 70px;
+    gap:10px;
+    margin:10px 0 8px;
+    box-shadow:0 6px 18px rgba(0,0,0,.25);
+    font-family:'Inter',sans-serif;
+    text-align:left;
+  }
+  .ticket .stub-divider{
+    border-left:1px dashed var(--soft-gold);
+    height:100%;
+  }
+  .ticket .admit{
+    font-size:8px;
+    letter-spacing:.22em;
+    color:var(--gold-hi);
+    font-weight:700;
+  }
+  .ticket .who-tk{
+    font-family:'Cormorant Garamond','Georgia',serif;
+    font-size:18px;
+    font-weight:700;
+    margin:2px 0;
+    letter-spacing:.02em;
+    color:var(--cream);
+  }
+  .ticket .tour{
+    font-size:8px;
+    color:var(--soft-gold);
+    letter-spacing:.18em;
+    margin-bottom:8px;
+  }
+  .ticket .venue{
+    font-size:8px;
+    color:var(--cream);
+    line-height:1.5;
+  }
+  .ticket .stub{
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+  }
+  .ticket .stub-label{
+    font-size:8px;
+    letter-spacing:.22em;
+    color:var(--gold-hi);
+    font-weight:700;
+  }
+  .ticket .stub-for{
+    font-style:italic;
+    font-size:9px;
+    color:var(--cream);
+    font-family:'Cormorant Garamond','Georgia',serif;
+  }
+  .ticket .stub-name{
+    font-family:'Cormorant Garamond','Georgia',serif;
+    font-style:italic;
+    font-weight:700;
+    font-size:16px;
+    color:var(--cream);
+  }
+  .ticket .stub-from{
+    font-size:7px;
+    color:var(--soft-gold);
+    font-family:'Inter',sans-serif;
+  }
+
+  .tag{
+    font-style:italic;
+    font-family:'Cormorant Garamond','Georgia',serif;
+    font-size:clamp(13px,2vw,15px);
+    color:var(--ink);
+    margin-top:4px;
+  }
+
+  .closing{
+    margin-top:auto;
+  }
+  .hmd{
+    color:var(--gold);
+    font-style:italic;
+    font-weight:700;
+    font-size:clamp(16px,2.5vw,20px);
+  }
+  .love{
+    color:var(--ink);
+    font-style:italic;
+    font-size:clamp(13px,2vw,15px);
+    margin-top:2px;
+  }
+
+  /* Floating notes after open */
+  .float-layer{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:100;
+  }
+  .float-note{
+    position:absolute;
+    color:var(--gold);
+    font-size:24px;
+    animation:floatUp 4s ease-out forwards;
+    opacity:0;
+    text-shadow:0 0 10px rgba(241,210,138,.5);
+  }
+  @keyframes floatUp{
+    0%{opacity:0;transform:translateY(0) rotate(0)}
+    15%{opacity:1}
+    100%{opacity:0;transform:translateY(-300px) rotate(25deg)}
+  }
+
+  .replay{
+    position:fixed;
+    bottom:20px;left:50%;
+    transform:translateX(-50%);
+    background:rgba(212,168,94,.15);
+    border:1px solid var(--gold);
+    color:var(--gold-hi);
+    padding:10px 22px;
+    border-radius:24px;
+    font-family:'Inter',sans-serif;
+    font-size:11px;
+    letter-spacing:.18em;
+    cursor:pointer;
+    opacity:0;
+    transition:opacity .6s ease 1s;
+    z-index:200;
+  }
+  .replay.show{opacity:1}
+  .replay:hover{background:rgba(212,168,94,.25)}
+
+  /* Subtle glow that intensifies when flipped */
+  .stage::before{
+    content:"";
+    position:absolute;
+    inset:-40px;
+    background:radial-gradient(ellipse at center, rgba(241,210,138,.12) 0%, transparent 60%);
+    z-index:-1;
+    transition:opacity 1.2s ease;
+    opacity:.4;
+  }
+  .stage.lit::before{opacity:1}
+</style>
+</head>
+<body>
+
+<div class="stars" aria-hidden="true"></div>
+
+<div class="stage" id="stage">
+  <div class="card" id="card">
+
+    <!-- FRONT (cover) -->
+    <div class="face front">
+      <div class="frame"></div>
+      <div class="lights">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+      </div>
+      <div class="label">·  M O T H E R ' S &nbsp; D A Y  ·</div>
+
+      <div class="wouldnt">Wouldn't it be</div>
+      <div class="suite">SUITE</div>
+      <div class="ornament">
+        <div class="line"></div><div class="diamond"></div><div class="line"></div>
+      </div>
+      <div style="font-style:italic;color:var(--soft-gold);font-size:14px;margin-top:6px;">
+        (open me up to find out why...)
+      </div>
+
+      <div class="hint">tap to open</div>
+
+      <div class="corner left">&#9833;</div>
+      <div class="corner right">&#9833;</div>
+    </div>
+
+    <!-- BACK (the reveal) -->
+    <div class="face back">
+      <div class="frame"></div>
+
+      <div class="ifwesaw">. . . if we saw</div>
+      <div class="who">Ed Sheeran</div>
+      <div class="when">on October 10<sup>th</sup></div>
+      <div class="ornament">
+        <div class="line"></div><div class="diamond"></div><div class="line"></div>
+      </div>
+
+      <div class="ticket">
+        <div>
+          <div class="admit">ADMIT &nbsp;·&nbsp; SUITE LEVEL</div>
+          <div class="who-tk">ED SHEERAN</div>
+          <div class="tour">+ – = ÷ × &nbsp; TOUR</div>
+          <div class="venue">
+            LUCAS OIL STADIUM<br>
+            INDIANAPOLIS<br>
+            SAT &nbsp;·&nbsp; OCT 10, 2026
+          </div>
+        </div>
+        <div class="stub-divider"></div>
+        <div class="stub">
+          <div class="stub-label">STUB</div>
+          <div>
+            <div class="stub-for">for</div>
+            <div class="stub-name">Mom</div>
+          </div>
+          <div class="stub-from">from Beau</div>
+        </div>
+      </div>
+
+      <div class="tag">(no paper ticket needed —<br>just you, me, and Ed)</div>
+
+      <div class="closing">
+        <div class="hmd">Happy Mother's Day, Mom</div>
+        <div class="love">I love you.</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="float-layer" id="floatLayer"></div>
+<button class="replay" id="replay" onclick="closeCard()">↺ &nbsp; close card</button>
+
+<script>
+  // Generate stars
+  const starsContainer = document.querySelector('.stars');
+  for(let i = 0; i < 90; i++){
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random()*100 + '%';
+    star.style.top = Math.random()*100 + '%';
+    star.style.animationDelay = (Math.random()*4) + 's';
+    star.style.opacity = (0.2 + Math.random()*0.6);
+    starsContainer.appendChild(star);
+  }
+
+  const stage = document.getElementById('stage');
+  const card = document.getElementById('card');
+  const replay = document.getElementById('replay');
+  const floatLayer = document.getElementById('floatLayer');
+  let opened = false;
+
+  function spawnFloatingNotes(){
+    const symbols = ['♪','♫','♬','♩','♪','♫'];
+    const stageRect = stage.getBoundingClientRect();
+    for(let i = 0; i < 16; i++){
+      const n = document.createElement('div');
+      n.className = 'float-note';
+      n.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+      n.style.left = (stageRect.left + Math.random()*stageRect.width) + 'px';
+      n.style.top  = (stageRect.top  + stageRect.height*0.6) + 'px';
+      n.style.fontSize = (16 + Math.random()*22) + 'px';
+      n.style.animationDelay = (Math.random()*1.8) + 's';
+      n.style.color = Math.random() > 0.5 ? '#d4a85e' : '#f1d28a';
+      floatLayer.appendChild(n);
+      setTimeout(() => n.remove(), 6000);
+    }
+  }
+
+  card.addEventListener('click', () => {
+    if(!opened){
+      card.classList.add('flipped');
+      stage.classList.add('lit');
+      opened = true;
+      setTimeout(spawnFloatingNotes, 700);
+      setTimeout(() => replay.classList.add('show'), 1500);
+    }
+  });
+
+  function closeCard(){
+    card.classList.remove('flipped');
+    stage.classList.remove('lit');
+    replay.classList.remove('show');
+    opened = false;
+    floatLayer.innerHTML = '';
+  }
+</script>
+
+</body>
+</html>
